@@ -1,9 +1,6 @@
 # Hockey Roster Management Backend
 
-**Student:** Ricardo Burgos  
-**Student ID:** 301463628  
-**Course:** COMP303 - Assignment 3  
-**Date:** November 11, 2025
+A RESTful web service for managing an Ice Hockey League system.
 
 ---
 
@@ -281,21 +278,6 @@ DELETE http://localhost:8080/player/1
 
 ---
 
-## 🎓 Assignment Requirements Met
-
-✅ Three entities (Team, Player, Match)  
-✅ All IDs are Long type  
-✅ In-memory storage (ConcurrentHashMap)  
-✅ Services layer with business logic  
-✅ REST Controllers with proper mappings  
-✅ All HTTP methods (GET, POST, PUT, DELETE)  
-✅ POM.xml with required dependencies  
-✅ Reactive programming (Mono/Flux)  
-✅ Student headers in all files  
-✅ Clean, documented code  
-✅ Innovation features (2 implemented)  
-
----
 
 ## 📦 Build Information
 
@@ -334,14 +316,13 @@ server.port=9090
 
 ## 📄 License
 
-This project is created for educational purposes as part of COMP303 Assignment 3.
+MIT License - Free to use and modify.
 
 ---
 
 ## 👨‍💻 Author
 
 **Ricardo Burgos**  
-Student ID: 301463628  
-Centennial College - COMP303  
-November 2025
+Full Stack Developer  
+[GitHub](https://github.com/burgo) | [LinkedIn](https://linkedin.com/in/ricardoburgos)
 
