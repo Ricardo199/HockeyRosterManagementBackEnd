@@ -1,3 +1,9 @@
+/*
+ * Student Name: Ricardo Burgos
+ * Student ID: 301463628
+ * Date: November 11, 2025
+ * Assignment 3 - COMP303
+ */
 package com.example.hockeyrostermanagementbackend.controller;
 
 import com.example.hockeyrostermanagementbackend.model.Match;
@@ -8,47 +14,43 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * REST controller for managing Match entities.
+ * Base URL: /match
+ *
+ * @author Ricardo Burgos
+ * @version 1.0
+ */
 @RequestMapping("match")
 @AllArgsConstructor
 @RestController
-
 public class MatchController {
 
     @Autowired
     private MatchService matchService;
 
-    // Return all matches as a Flux. GET /match
     @GetMapping
     public Flux<Match> findAll() {
-        System.out.println("All the match information");
         return matchService.findAll();
     }
 
-    // Return one match by id. GET /match/{id}
     @GetMapping("{id}")
     public Mono<Match> getById(@PathVariable final Long id) {
-        System.out.println("One match information based for the given ID");
-        return matchService.getById(id.intValue());
+        return matchService.getById(id);
     }
 
-    // Update an existing match. PUT /match/{id}
     @PutMapping("{id}")
     public Mono<Match> updateById(@PathVariable final Long id, @RequestBody final Match match) {
-        System.out.println("Updating a match Info");
-        return matchService.update(String.valueOf(id), match);
+        return matchService.update(id, match);
     }
 
-    // Create a new match. POST /match
     @PostMapping
     public Mono<Match> save(@RequestBody final Match match) {
-        System.out.println("Added match Info");
         return matchService.save(match);
     }
 
-    // Delete a match by id. DELETE /match/{id}
     @DeleteMapping("{id}")
     public Mono<Void> delete(@PathVariable final Long id) {
-        System.out.println("A match Info deleted");
-        return matchService.delete(id.intValue());
+        return matchService.delete(id);
     }
 }

@@ -1,15 +1,48 @@
+/*
+ * Student Name: Ricardo Burgos
+ * Student ID: 301463628
+ * Date: November 11, 2025
+ * Assignment 3 - COMP303
+ */
 package com.example.hockeyrostermanagementbackend.model;
 
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
- * MatchRepo handles database operations for Match entities.
- * Extends CrudRepository to inherit pre-built methods for save, find, delete operations.
- * Spring Data JPA auto-generates the implementation at runtime.
- * The Long type parameter specifies the Match entity's ID type.
+ * In-memory repository for Match entities.
+ *
+ * @author Ricardo Burgos
+ * @version 1.0
  */
 @Repository
-public interface MatchRepo extends CrudRepository<Match,Long> {
+public class MatchRepo {
+
+    final Map<Long, Match> matchDatabase = new ConcurrentHashMap<>();
+
+    final AtomicLong nextId = new AtomicLong(1);
+
+    public Match save(Match match){
+        if (match.getId() == null) {
+            match.setId(nextId.getAndIncrement());
+        }
+        matchDatabase.put(match.getId(), match);
+        return match;
+    }
+
+    public Iterable<? extends Match> findAll(){
+        return matchDatabase.values();
+    }
+
+    public Match findById(Long aLong){
+        return matchDatabase.get(aLong);
+    }
+
+    public void deleteById(Long aLong){
+        matchDatabase.remove(aLong);
+    }
 }
 
