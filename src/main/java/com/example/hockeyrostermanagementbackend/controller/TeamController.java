@@ -1,3 +1,9 @@
+/*
+ * Student Name: Ricardo Burgos
+ * Student ID: 301463628
+ * Date: November 11, 2025
+ * Assignment 3 - COMP303
+ */
 package com.example.hockeyrostermanagementbackend.controller;
 
 import com.example.hockeyrostermanagementbackend.model.Team;
@@ -8,47 +14,52 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * REST controller for managing Team entities.
+ * Base URL: /team
+ *
+ * @author Ricardo Burgos
+ * @version 1.0
+ */
 @RequestMapping("team")
 @AllArgsConstructor
 @RestController
-
 public class TeamController {
 
     @Autowired
     private TeamService teamService;
 
-    // Return all teams
     @GetMapping
     public Flux<Team> findAll() {
-        System.out.println("All the team information");
         return teamService.getAll();
     }
 
-    // Return a single team by id
     @GetMapping("{id}")
     public Mono<Team> getById(@PathVariable final Long id) {
-        System.out.println("One team information based for the given ID");
-        return teamService.getById(id.intValue());
+        return teamService.getById(id);
     }
 
-    // Update a team
     @PutMapping("{id}")
-    public Mono updateById(@PathVariable final Long id, @RequestBody final Team team) {
-        System.out.println("Updating a team Info");
-        return teamService.save(team);
+    public Mono<Team> updateById(@PathVariable final Long id, @RequestBody final Team team) {
+        return teamService.update(id, team);
     }
 
-    // Create a team
     @PostMapping
-    public Mono save(@RequestBody final Team team) {
-        System.out.println("Added team Info");
+    public Mono<Team> save(@RequestBody final Team team) {
         return teamService.save(team);
     }
 
-    // Delete a team
     @DeleteMapping("{id}")
-    public Mono delete(@PathVariable final Long id) {
-        System.out.println("A team Info deleted");
-        return teamService.delete(id.intValue());
+    public Mono<Void> delete(@PathVariable final Long id) {
+        return teamService.delete(id);
+    }
+
+    /**
+     * INNOVATION: Search teams by name (case-insensitive partial match).
+     * GET /team/search?name=maple
+     */
+    @GetMapping("/search")
+    public Flux<Team> searchByName(@RequestParam String name) {
+        return teamService.searchByName(name);
     }
 }
